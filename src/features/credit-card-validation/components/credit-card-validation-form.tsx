@@ -3,7 +3,7 @@ export const CreditCardValidationForm = () => {
     <form className="space-y-4">
       <div>
         <label htmlFor="credit-card-number" className="block text-sm font-medium text-gray-700">
-          Credit Card Number
+          Credit card number to validate
         </label>
         <input
           id="credit-card-number"

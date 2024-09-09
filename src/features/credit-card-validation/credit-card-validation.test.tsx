@@ -13,7 +13,7 @@ describe("Credit Card Validation", () => {
   });
 
   it("should display the credit card form ui", () => {
-    expect(screen.getByLabelText(/Credit Card Number/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Credit card number to validate/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Submit/i })).toBeInTheDocument();
   });
 });

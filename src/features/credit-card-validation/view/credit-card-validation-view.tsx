@@ -7,6 +7,7 @@ export const CreditCardValidationView = () => {
         <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
           Credit Card Validation
         </h1>
+
         <CreditCardValidationForm />
       </div>
     </div>
