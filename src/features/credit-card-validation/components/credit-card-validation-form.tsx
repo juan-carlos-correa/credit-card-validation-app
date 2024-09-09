@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { cn } from "@/utils/cn";
+import { fetchCreditCardValidation } from "../services/fetch-credit-card-validation";
 
 interface FormElements extends HTMLFormControlsCollection {
   creditCardInput: HTMLInputElement;
@@ -11,8 +12,9 @@ interface CreditCardFormElement extends HTMLFormElement {
 
 export const CreditCardValidationForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const handleSubmit = (event: React.FormEvent<CreditCardFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<CreditCardFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const creditCardInputValue = form.elements.creditCardInput.value;
@@ -21,6 +23,14 @@ export const CreditCardValidationForm = () => {
       setErrorMessage("Please enter a credit card number");
       return;
     }
+
+    const data = await fetchCreditCardValidation(creditCardInputValue);
+
+    if (!data.isValid) {
+      return;
+    }
+
+    setSuccessMessage("Credit card number is valid");
   };
 
   return (
@@ -53,6 +63,11 @@ export const CreditCardValidationForm = () => {
       >
         Submit
       </button>
+      {successMessage && (
+        <p className="mt-2 text-sm text-green-600" id="email-error">
+          {successMessage}
+        </p>
+      )}
     </form>
   );
 };

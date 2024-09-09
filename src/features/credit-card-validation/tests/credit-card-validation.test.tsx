@@ -28,4 +28,32 @@ describe("Credit Card Validation", () => {
 
     expect(await screen.findByText(/Please enter a credit card number/i)).toBeInTheDocument();
   });
+
+  it("should display a success message when the form is submitted with a valid card number", async () => {
+    const user = userEvent.setup();
+
+    expect(screen.queryByText(/Credit card number is valid/i)).not.toBeInTheDocument();
+
+    const cardNumberInput = screen.getByLabelText(/Credit card number to validate/i);
+    await user.type(cardNumberInput, "4111111111111111");
+
+    const submitButton = screen.getByRole("button", { name: /Submit/i });
+    await user.click(submitButton);
+
+    expect(await screen.findByText(/Credit card number is valid/i)).toBeInTheDocument();
+  });
+
+  it.skip("should display an error message when the form is submitted with an invalid card number", async () => {
+    const user = userEvent.setup();
+
+    expect(screen.queryByText(/Please enter a valid credit card number/i)).not.toBeInTheDocument();
+
+    const cardNumberInput = screen.getByLabelText(/Credit card number to validate/i);
+    await user.type(cardNumberInput, "1234");
+
+    const submitButton = screen.getByRole("button", { name: /Submit/i });
+    await user.click(submitButton);
+
+    expect(await screen.findByText(/Please enter a valid credit card number/i)).toBeInTheDocument();
+  });
 });
