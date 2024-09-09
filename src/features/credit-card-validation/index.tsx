@@ -1,1 +1,1 @@
-export { CreditCardValidationView } from "./view/credit-card-validation-view";
+export { CreditCardValidationView } from "./views/credit-card-validation-view";
