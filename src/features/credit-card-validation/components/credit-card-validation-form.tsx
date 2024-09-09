@@ -1,16 +1,51 @@
+import { useState } from "react";
+
+import { cn } from "@/utils/cn";
+
+interface FormElements extends HTMLFormControlsCollection {
+  creditCardInput: HTMLInputElement;
+}
+interface CreditCardFormElement extends HTMLFormElement {
+  readonly elements: FormElements;
+}
+
 export const CreditCardValidationForm = () => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleSubmit = (event: React.FormEvent<CreditCardFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const creditCardInputValue = form.elements.creditCardInput.value;
+
+    if (creditCardInputValue.trim() === "") {
+      setErrorMessage("Please enter a credit card number");
+      return;
+    }
+  };
+
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="credit-card-number" className="block text-sm font-medium text-gray-700">
           Credit card number to validate
         </label>
         <input
           id="credit-card-number"
+          name="creditCardInput"
           type="text"
           placeholder="Enter your card number here"
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className={cn(
+            "mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+            errorMessage ? "border-red-500" : "border-gray-300",
+          )}
+          aria-invalid={!!errorMessage}
+          aria-describedby={errorMessage ? "email-error" : undefined}
         />
+        {errorMessage && (
+          <p className="mt-2 text-sm text-red-600" id="email-error">
+            {errorMessage}
+          </p>
+        )}
       </div>
       <button
         type="submit"
