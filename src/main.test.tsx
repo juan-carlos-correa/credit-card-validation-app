@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 
-import { CreditCardValidation } from "./features/credit-card-validation";
+import { CreditCardValidationView } from "./features/credit-card-validation";
 
 describe("main", () => {
-  it("renders the title", () => {
-    render(<CreditCardValidation />);
+  it("should render the credit card validation view", () => {
+    render(<CreditCardValidationView />);
     const title = screen.getByText(/Credit Card Validation/i);
     expect(title).toBeInTheDocument();
   });
