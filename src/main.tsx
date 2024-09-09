@@ -7,6 +7,8 @@ import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <CreditCardValidation />
+    <main>
+      <CreditCardValidation />
+    </main>
   </StrictMode>,
 );
