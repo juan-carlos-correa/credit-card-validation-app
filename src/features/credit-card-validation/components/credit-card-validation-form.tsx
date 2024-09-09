@@ -27,6 +27,7 @@ export const CreditCardValidationForm = () => {
     const data = await fetchCreditCardValidation(creditCardInputValue);
 
     if (!data.isValid) {
+      setErrorMessage(data.errorMessage);
       return;
     }
 

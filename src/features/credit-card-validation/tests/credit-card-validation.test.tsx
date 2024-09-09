@@ -35,7 +35,7 @@ describe("Credit Card Validation", () => {
     expect(screen.queryByText(/Credit card number is valid/i)).not.toBeInTheDocument();
 
     const cardNumberInput = screen.getByLabelText(/Credit card number to validate/i);
-    await user.type(cardNumberInput, "4111111111111111");
+    await user.type(cardNumberInput, "4539148803436467");
 
     const submitButton = screen.getByRole("button", { name: /Submit/i });
     await user.click(submitButton);
@@ -43,13 +43,13 @@ describe("Credit Card Validation", () => {
     expect(await screen.findByText(/Credit card number is valid/i)).toBeInTheDocument();
   });
 
-  it.skip("should display an error message when the form is submitted with an invalid card number", async () => {
+  it("should display an error message when the form is submitted with an invalid card number", async () => {
     const user = userEvent.setup();
 
     expect(screen.queryByText(/Please enter a valid credit card number/i)).not.toBeInTheDocument();
 
     const cardNumberInput = screen.getByLabelText(/Credit card number to validate/i);
-    await user.type(cardNumberInput, "1234");
+    await user.type(cardNumberInput, "4539148803436466");
 
     const submitButton = screen.getByRole("button", { name: /Submit/i });
     await user.click(submitButton);
