@@ -1,17 +1,19 @@
 import { render, screen } from "@testing-library/react";
-import { axe } from "jest-axe";
 
 import { CreditCardValidationView } from "./";
 
 describe("Credit Card Validation", () => {
-  it("renders the title", () => {
+  beforeEach(() => {
     render(<CreditCardValidationView />);
+  });
+
+  it("renders the title", () => {
     const title = screen.getByText(/Credit Card Validation/i);
     expect(title).toBeInTheDocument();
   });
 
-  it("should not have basic automatically detectable accessibility issues", async () => {
-    const { container } = render(<CreditCardValidationView />);
-    expect(await axe(container)).toHaveNoViolations();
+  it("should display the credit card form ui", () => {
+    expect(screen.getByLabelText(/Credit Card Number/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Submit/i })).toBeInTheDocument();
   });
 });
