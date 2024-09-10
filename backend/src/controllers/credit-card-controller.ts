@@ -14,7 +14,10 @@ export const creditCardController = (request: Request, response: Response) => {
       });
     }
 
-    response.status(200).send("Hello World");
+    response.status(200).send({
+      isValid,
+      message: "Credit card number is valid",
+    });
   } catch (error) {
     console.log(error);
     response.status(500).send("Internal Server Error");

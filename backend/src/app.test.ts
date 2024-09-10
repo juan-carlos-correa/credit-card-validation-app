@@ -15,6 +15,10 @@ describe(`POST ${url}`, () => {
     });
 
     expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+      isValid: true,
+      message: "Credit card number is valid",
+    });
   });
 
   it("should return status 400 when creditCardNumber is not provided", async () => {
