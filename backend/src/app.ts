@@ -1,8 +1,10 @@
 import express, { Request, Response } from "express";
 
+import { baseUrl, creditCardValidationUrl } from "./url-config";
+
 const app = express();
 
-app.post("/api/v1/credit-cards/validation", (request: Request, response: Response) => {
+app.post(`${baseUrl}/${creditCardValidationUrl}`, (request: Request, response: Response) => {
   response.status(200).send("Hello World");
 });
 
