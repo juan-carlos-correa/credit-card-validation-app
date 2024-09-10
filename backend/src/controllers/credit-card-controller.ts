@@ -10,7 +10,7 @@ export const creditCardController = (request: Request, response: Response) => {
     if (!isValid) {
       return response.status(200).json({
         isValid,
-        message: "Please enter a valid credit card number",
+        message: "The credit card number is invalid",
       });
     }
 

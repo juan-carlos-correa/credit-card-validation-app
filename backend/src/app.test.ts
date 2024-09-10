@@ -35,7 +35,7 @@ describe(`POST ${url}`, () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       isValid: false,
-      message: "Please enter a valid credit card number",
+      message: "The credit card number is invalid",
     });
   });
 
