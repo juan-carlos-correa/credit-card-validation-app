@@ -28,7 +28,7 @@ export const CreditCardValidationForm = () => {
       resetMessages();
 
       const form = event.currentTarget;
-      const creditCardInputValue = form.elements.creditCardInput.value;
+      const creditCardInputValue = form.elements.creditCardInput.value.replace(/\s+/g, "");
 
       if (creditCardInputValue.trim() === "") {
         setErrorMessage("Please enter a credit card number");
@@ -51,6 +51,20 @@ export const CreditCardValidationForm = () => {
     }
   };
 
+  const formatCardNumber = (value: string) => {
+    // Remove all non-digit characters
+    const cleaned = value.replace(/\D/g, "");
+    // Format into groups of 4 digits
+    const formatted = cleaned.match(/.{1,4}/g)?.join(" ") || cleaned;
+    return formatted;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const formattedValue = formatCardNumber(value);
+    e.target.value = formattedValue; // Directly modify the input value
+  };
+
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div>
@@ -68,6 +82,7 @@ export const CreditCardValidationForm = () => {
           )}
           aria-invalid={!!errorMessage}
           aria-describedby={errorMessage ? "email-error" : undefined}
+          onChange={handleInputChange}
         />
         {errorMessage && (
           <p className="mt-2 text-sm text-red-600" id="email-error">
