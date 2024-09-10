@@ -1,8 +1,6 @@
-import { useState } from "react";
-
 import { cn } from "@/utils/cn";
-import { fetchCreditCardValidation } from "../services/fetch-credit-card-validation";
 import { CreditCardInput } from "./credit-card-input";
+import { useCreditCardValidation } from "../hooks/use-credit-card-validation";
 
 interface FormElements extends HTMLFormControlsCollection {
   creditCardInput: HTMLInputElement;
@@ -11,45 +9,18 @@ interface CreditCardFormElement extends HTMLFormElement {
   readonly elements: FormElements;
 }
 
-type FetchStatus = "idle" | "loading" | "success" | "error";
-
 export const CreditCardValidationForm = () => {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [fetchStatus, setFetchStatus] = useState<FetchStatus | null>(null);
-
-  const resetMessages = () => {
-    setErrorMessage(null);
-    setSuccessMessage(null);
-  };
+  const { errorMessage, successMessage, fetchStatus, validateCreditCard } =
+    useCreditCardValidation();
 
   const handleSubmit = async (event: React.FormEvent<CreditCardFormElement>) => {
     try {
       event.preventDefault();
-      resetMessages();
-
       const form = event.currentTarget;
       const creditCardInputValue = form.elements.creditCardInput.value;
-      const creditCardValueWithoutSpaces = creditCardInputValue.replace(/\s+/g, "");
-
-      if (creditCardValueWithoutSpaces === "") {
-        setErrorMessage("Please enter a credit card number");
-        return;
-      }
-
-      setFetchStatus("loading");
-      const data = await fetchCreditCardValidation(creditCardValueWithoutSpaces);
-      setFetchStatus("success");
-
-      if (!data.isValid) {
-        setErrorMessage(data.errorMessage);
-        return;
-      }
-
-      setSuccessMessage("Credit card number is valid");
+      await validateCreditCard(creditCardInputValue);
     } catch (error) {
       console.error(error);
-      setFetchStatus("error");
     }
   };
 
