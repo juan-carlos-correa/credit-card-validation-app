@@ -29,15 +29,16 @@ export const CreditCardValidationForm = () => {
       resetMessages();
 
       const form = event.currentTarget;
-      const creditCardInputValue = form.elements.creditCardInput.value.replace(/\s+/g, "");
+      const creditCardInputValue = form.elements.creditCardInput.value;
+      const creditCardValueWithoutSpaces = creditCardInputValue.replace(/\s+/g, "");
 
-      if (creditCardInputValue.trim() === "") {
+      if (creditCardValueWithoutSpaces === "") {
         setErrorMessage("Please enter a credit card number");
         return;
       }
 
       setFetchStatus("loading");
-      const data = await fetchCreditCardValidation(creditCardInputValue);
+      const data = await fetchCreditCardValidation(creditCardValueWithoutSpaces);
       setFetchStatus("success");
 
       if (!data.isValid) {
