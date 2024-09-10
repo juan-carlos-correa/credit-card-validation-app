@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["vitest/globals"],
     "target": "es2016",
     "module": "commonjs",
     "outDir": "./dist",
@@ -7,5 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["src"]
 }
