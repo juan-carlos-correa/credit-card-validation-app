@@ -29,6 +29,7 @@ export const CreditCardInput = ({ errorMessage }: CreditCardInputProps) => {
         "mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
         errorMessage ? "border-red-500" : "border-gray-300",
       )}
+      maxLength={19}
       aria-invalid={!!errorMessage}
       aria-describedby={errorMessage ? "email-error" : undefined}
       onChange={handleInputChange}
