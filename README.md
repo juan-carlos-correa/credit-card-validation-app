@@ -5,6 +5,32 @@ This is a simple credit card number validation app that checks if a credit card 
 > [!WARNING]
 > This is only for educational purposes and should not be used in production. For secure credit card validation, use a certified payment gateway.
 
+## Features
+
+- Validates credit card numbers using the Luhn algorithm
+- Simple and easy to use
+- Responsive design
+- Fast and lightweight
+- Backend and frontend tests
+- Error handling
+- Environment variables
+- Prettier and ESLint
+- TailwindCSS for styling
+- Vite for frontend development
+- Express.js for the backend
+
+## Tech stack
+
+- Node.js
+- Express.js
+- Supertest
+- React
+- TailwindCSS
+- Vite
+- Vitest
+- React Testing Library
+- MSW
+
 ## Installation
 
 1. Clone the repository
@@ -30,6 +56,8 @@ npm ci
 ```env
 cp .env.example .env
 ```
+
+The .env file contains environment variables needed for backend configuration.
 
 ## Usage
 
@@ -69,16 +97,13 @@ cd frontend
 npm test
 ```
 
-# Notes
+Notes
+This is a basic implementation, and there are many ways to improve it. Here are some ideas:
 
-This is a basic implementation, and there are many ways to improve it.
+- Caching: You could add a cache to store the validated credit card numbers to reduce the number of requests to the server. For example, using a library like node-cache to store validated credit card numbers in memory could improve performance.
 
-For example, you could add a cache to store the credit card numbers that have been validated to reduce the number of requests to the server.
+- Additional Validation Rules: Beyond the Luhn algorithm, you could add more rules to validate the credit card number, such as checking the length or card type (e.g., Visa, MasterCard, American Express).
 
-For that, you could use a library like `node-cache` to store the credit card numbers in memory.
+- Error Handling in the Frontend: Consider adding a React error boundary to handle errors gracefully in the frontend.
 
-You could also add more validation rules to check if the credit card number is valid, such as checking the length of the credit card number or the card type.
-
-Another improvement is adding a React erro catch boundary to handle errors in the frontend.
-
-There are always areas for improvement, there are more tasks than lifetime.
+There are always areas for improvement; there are more tasks than lifetime!
