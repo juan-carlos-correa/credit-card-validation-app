@@ -21,7 +21,6 @@ export const CreditCardValidationForm = () => {
     try {
       event.preventDefault();
       setErrorMessage(null);
-      setFetchStatus("loading");
 
       const form = event.currentTarget;
       const creditCardInputValue = form.elements.creditCardInput.value;
@@ -31,7 +30,9 @@ export const CreditCardValidationForm = () => {
         return;
       }
 
+      setFetchStatus("loading");
       const data = await fetchCreditCardValidation(creditCardInputValue);
+      setFetchStatus("success");
 
       if (!data.isValid) {
         setErrorMessage(data.errorMessage);
@@ -42,8 +43,6 @@ export const CreditCardValidationForm = () => {
     } catch (error) {
       console.error(error);
       setFetchStatus("error");
-    } finally {
-      setFetchStatus("success");
     }
   };
 
@@ -68,6 +67,11 @@ export const CreditCardValidationForm = () => {
         {errorMessage && (
           <p className="mt-2 text-sm text-red-600" id="email-error">
             {errorMessage}
+          </p>
+        )}
+        {fetchStatus === "error" && (
+          <p className="mt-2 text-sm text-red-600" id="email-error">
+            Something went wrong. Please try again later.
           </p>
         )}
       </div>
