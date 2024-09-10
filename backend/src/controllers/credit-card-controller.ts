@@ -5,10 +5,6 @@ export const creditCardController = (request: Request, response: Response) => {
   try {
     const { creditCardNumber } = request.body;
 
-    if (!creditCardNumber) {
-      return response.status(400).send("creditCardNumber is required");
-    }
-
     const isValid = validateCreditCardNumber(creditCardNumber);
 
     if (!isValid) {

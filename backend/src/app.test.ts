@@ -34,4 +34,16 @@ describe(`POST ${url}`, () => {
       message: "Please enter a valid credit card number",
     });
   });
+
+  it("should return status 400 when the credit card number contains characters other than numbers", async () => {
+    const response = await request(app).post(url).send({
+      creditCardNumber: "37828224631000a",
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({
+      isValid: false,
+      message: "Please enter a valid credit card number",
+    });
+  });
 });
