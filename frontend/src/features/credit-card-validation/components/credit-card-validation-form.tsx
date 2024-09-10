@@ -17,10 +17,15 @@ export const CreditCardValidationForm = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [fetchStatus, setFetchStatus] = useState<FetchStatus | null>(null);
 
+  const resetMessages = () => {
+    setErrorMessage(null);
+    setSuccessMessage(null);
+  };
+
   const handleSubmit = async (event: React.FormEvent<CreditCardFormElement>) => {
     try {
       event.preventDefault();
-      setErrorMessage(null);
+      resetMessages();
 
       const form = event.currentTarget;
       const creditCardInputValue = form.elements.creditCardInput.value;
